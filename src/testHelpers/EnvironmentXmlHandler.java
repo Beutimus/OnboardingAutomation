@@ -8,13 +8,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class EnvironmentXmlHandler {
 	
 	private static EnvironmentXmlHandler instance = new EnvironmentXmlHandler();
-	private static String settingFilePath = "./Settings/settings.xml";
-	private static String xmlFilePath = "./../environments.xml";
+	private static final String settingFilePath = ".\\Settings\\settings.xml";
+	private static final String xmlFilePath = ".\\Settings\\environments.xml";
+	private static String environmentURL;
 	
 	private EnvironmentXmlHandler()
 	{
@@ -22,19 +24,31 @@ public class EnvironmentXmlHandler {
 		DocumentBuilder db;
 		try {
 			db = dbf.newDocumentBuilder();
+
+			Document setting = db.parse(new File(settingFilePath));
+			Document environment = db.parse(new File(xmlFilePath));
 			
-			File file = new File(settingFilePath);
+			NodeList mainNode = setting.getElementsByTagName("CurrentEnvironment");
 			
-			System.out.println(file);
-
-			Document doc = db.parse(new File(settingFilePath));
-
-
-			File settingFile = new File(settingFilePath);
-			File xmlFile = new File(xmlFilePath);
-
-			System.out.println("" + settingFile.getAbsolutePath());
-			System.out.println("" + xmlFile.getAbsolutePath());
+			String environmentSetting = mainNode.item(0).getTextContent();
+			
+			NodeList environmentNames = environment.getElementsByTagName("Name");
+			NodeList environmentURLs = environment.getElementsByTagName("URL");
+			
+			System.out.println(environmentNames.getLength());
+			
+			for (int i = 0; i < environmentNames.getLength(); i++)
+			{
+				String name = environmentNames.item(i).getTextContent();
+				
+				System.out.println("Env Name: " + name);
+				
+				if (name.toLowerCase().equals(environmentSetting.toLowerCase()))
+				{
+					System.out.println("Match");
+					environmentURL = environmentURLs.item(i).getTextContent();
+				}
+			}
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,8 +63,7 @@ public class EnvironmentXmlHandler {
 	
 	public static String getEnvironmentBaseURL()
 	{
-		// TODO Implement this
-		return null;
+		return environmentURL;
 	}
 
 }

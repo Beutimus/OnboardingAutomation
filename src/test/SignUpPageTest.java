@@ -4,6 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 
+import PageObjects.HomePage;
+import junit.framework.Assert;
 import testHelpers.EnvironmentXmlHandler;
 
 public class SignUpPageTest {
@@ -12,13 +14,23 @@ public class SignUpPageTest {
 	@Test
 	public void nullTest()
 	{
-		EnvironmentXmlHandler.getEnvironmentBaseURL();
+		System.out.println(EnvironmentXmlHandler.getEnvironmentBaseURL());
 		
 		WebDriver driver = new FirefoxDriver();
 		
-		driver.get("https://www.msn.com");
+		HomePage homepage = new HomePage(driver);
 		
+		//driver.get("https://www.msn.com");
+	}
+	
+	@Test
+	public void homePageTest()
+	{
+		WebDriver driver = new FirefoxDriver();
 		
+		HomePage page = new HomePage(driver);
+		page.gotoHomePage();
+		page.assertOnHomePage();
 	}
 
 }
