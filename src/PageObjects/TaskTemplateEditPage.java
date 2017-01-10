@@ -85,4 +85,8 @@ public class TaskTemplateEditPage extends BasePageObject {
 	public void clickSave() {
 		driver.findElement(saveButtonBy).click();
 	}
+
+	public boolean isSaveButtonEnabled() {
+		return driver.findElement(saveButtonBy).isEnabled();
+	}
 }

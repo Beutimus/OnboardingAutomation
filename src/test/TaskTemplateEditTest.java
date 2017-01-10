@@ -129,4 +129,26 @@ public class TaskTemplateEditTest {
 	    	
 	    	edit.typeNewDescription(oldDescription);
 	    }
+	    
+	    @Test
+	    public void verifyEmptyTitle()
+	    {
+	    	List<WebElement> templateLinks = templateListPage.getTemplateLinks();
+	    	
+	    	int max = templateLinks.size();
+	    	
+	    	Random rand = new Random();
+	    	
+	    	int index = rand.nextInt(max);
+	    	
+	    	WebElement link = templateLinks.get(index);
+	    	
+	    	link.click();
+	    	
+	    	TaskTemplateEditPage edit = new TaskTemplateEditPage(driver);
+	    	
+	    	edit.typeNewTitle("");
+	    	
+	    	Assert.assertTrue(edit.isSaveButtonEnabled() == false);
+	    }
 }
