@@ -17,6 +17,8 @@ public class EnvironmentXmlHandler {
 	private static final String settingFilePath = ".\\Settings\\settings.xml";
 	private static final String xmlFilePath = ".\\Settings\\environments.xml";
 	private static String environmentURL;
+	private static String databaseURL;
+	private static String databaseLogin;
 	
 	private EnvironmentXmlHandler()
 	{
@@ -34,6 +36,8 @@ public class EnvironmentXmlHandler {
 			
 			NodeList environmentNames = environment.getElementsByTagName("Name");
 			NodeList environmentURLs = environment.getElementsByTagName("URL");
+			NodeList environmentDBURLs = environment.getElementsByTagName("DBURL");
+			NodeList environmentDBLogin = environment.getElementsByTagName("DBLogin");
 			
 			System.out.println(environmentNames.getLength());
 			
@@ -47,6 +51,8 @@ public class EnvironmentXmlHandler {
 				{
 					System.out.println("Match");
 					environmentURL = environmentURLs.item(i).getTextContent();
+					databaseURL = environmentDBURLs.item(i).getTextContent();
+					databaseLogin = environmentDBLogin.item(i).getTextContent();
 				}
 			}
 		} catch (ParserConfigurationException e) {
@@ -66,4 +72,22 @@ public class EnvironmentXmlHandler {
 		return environmentURL;
 	}
 
+	public static String databaseURL()
+	{
+		return databaseURL;
+	}
+	
+	public static  String databaseUserName()
+	{
+		String login = databaseLogin.substring(0, databaseLogin.indexOf('|'));
+		
+		return login;
+	}
+	
+	public static String databasePassword()
+	{
+		String login = databaseLogin.substring(databaseLogin.indexOf('|') + 1);
+		
+		return login;
+	}
 }

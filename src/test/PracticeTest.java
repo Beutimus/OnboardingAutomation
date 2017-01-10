@@ -5,16 +5,21 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 
 import PageObjects.HomePage;
-import junit.framework.Assert;
 import testHelpers.EnvironmentXmlHandler;
 
-public class SignUpPageTest {
+public class PracticeTest {
 	
 	// TODO: Delete this test when it is running correctly
 	@Test
 	public void nullTest()
 	{
 		System.out.println(EnvironmentXmlHandler.getEnvironmentBaseURL());
+		
+		System.out.println(EnvironmentXmlHandler.databaseURL());
+		
+		System.out.println(EnvironmentXmlHandler.databaseUserName());
+
+		System.out.println(EnvironmentXmlHandler.databasePassword());
 		
 		WebDriver driver = new FirefoxDriver();
 		
@@ -29,8 +34,8 @@ public class SignUpPageTest {
 		WebDriver driver = new FirefoxDriver();
 		
 		HomePage page = new HomePage(driver);
-		page.gotoHomePage();
-		page.assertOnHomePage();
+		page.gotoPage();
+		page.assertOnPage();
 	}
 
 }

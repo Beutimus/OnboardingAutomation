@@ -2,5 +2,13 @@
 	<Environment>
 		<Name>Prod</Name>
 		<URL>http://onboarding.stgconsulting.com/</URL>
+		<DBURL>user|pass</DBURL>
+		<DBLogin>user|pass</DBLogin>
+	</Environment>
+	<Environment>
+		<Name>Test</Name>
+		<URL>http://10.117.3.200/</URL>
+		<DBURL></DBURL>
+		<DBLogin>user|pass</DBLogin>
 	</Environment>
 </Environments>
